@@ -1,0 +1,77 @@
+:root{
+  background: linear-gradient(315deg, rgba(17,17,20,1) 0%, rgba(35,35,44,1) 100%);
+}
+
+body{
+  margin: 0;
+  height: 100vh;
+}
+
+.flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.round{
+  border-radius: 50%;
+}
+
+.redLight{
+  background-color: red;
+  filter: drop-shadow(0 0 32px red);
+}
+
+.greenLight{
+  background-color:green;
+  filter: drop-shadow(0 0 32px green);
+}
+
+/* Knob */
+
+.base{
+  height: 256px;
+  width: 256px;
+  background-color: #121212;
+}
+
+.lightRing{
+  width: calc(100%);
+  height: calc(100%);
+  transition: all .5s;
+}
+
+.layer1{
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  background: rgb(17,17,20);
+  background: linear-gradient(315deg, rgba(17,17,20,1) 0%, rgba(35,35,44,1) 100%);
+}
+
+.layer2{
+  width: calc(100% - 42px);
+  height: calc(100% - 42px);
+  background: rgb(17,17,20);
+}
+
+.layer3{
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  background: rgba(35,35,44,1);
+}
+
+.layer4{
+  width: calc(100% - 16px);
+  height: calc(100% - 16px);
+  background: rgb(17,17,20);
+  background: linear-gradient(135deg, rgba(17,17,20,1) 0%, rgba(35,35,44,1) 100%);
+}
+
+.screen{
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  background: rgb(5, 5, 7);
+}
+
+
+/* https://www.youtube.com/watch?v=ip641WmY4pA&t=53s */
