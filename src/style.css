@@ -33,6 +33,16 @@ body{
   height: 256px;
   width: 256px;
   background-color: #121212;
+  position: relative;
+}
+
+.knobDraggable{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border: 1px solid blue;
 }
 
 .lightRing{
