@@ -22,10 +22,10 @@ body{
   filter: drop-shadow(0 0 32px red);
 }
 
-.greenLight{
+/* .greenLight{
   background-color:green;
   filter: drop-shadow(0 0 32px green);
-}
+} */
 
 /* Knob */
 
@@ -42,7 +42,7 @@ body{
   left: 0;
   height: 100%;
   width: 100%;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
 }
 
 .lightRing{
@@ -81,6 +81,29 @@ body{
   width: calc(100% - 4px);
   height: calc(100% - 4px);
   background: rgb(5, 5, 7);
+  position: relative
+}
+
+.dotIndicatorContainer{
+  height: calc(100% - 16px);
+  width: 8px;
+
+  display: flex;
+  flex-direction: column;
+
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translate(-50%) rotate(0deg);
+  /* transform: rotate(50deg); */
+}
+
+.dotIndicator{
+  width: 8px;
+  height: 8px;
+  background-color: rgb(97, 69, 255);
+  filter: drop-shadow(0 0 6px rgb(97, 69, 255));
+
 }
 
 

@@ -1,68 +1,59 @@
-import { gsap } from "gsap";
+import { gsap, snap } from "gsap";
 import { Draggable } from "gsap/Draggable";
+import { DragController } from "./DragController";
+import { DotIndicator } from "./DotIndicator";
 gsap.registerPlugin(Draggable);
 
 export class Knob {
   knobHTML: HTMLElement;
-  knobDraggableHTML: HTMLElement;
   lightRingHTML: HTMLElement;
-  tickEmitterHTML: HTMLAudioElement;
+  tickEmitterHTML: HTMLAudioElement | null = null;
+  tickReady: boolean = true;
+  dragController: DragController;
+
+  dotIndicator: DotIndicator;
+
   constructor() {
+    // Get HTML Knob elements
     this.knobHTML = document.querySelector("#knob") as HTMLElement;
-    this.knobDraggableHTML = this.knobHTML.querySelector(
-      "#knobDraggable"
-    ) as HTMLElement;
     this.lightRingHTML = this.knobHTML.querySelector(
       "#lightRing"
     ) as HTMLElement;
 
-    this.createTickEmitter();
+    // Instantiate screen dot indicator
+    this.dotIndicator = new DotIndicator();
 
-    this.createDraggable(this.knobDraggableHTML);
-
-    this.knobHTML.addEventListener("mousedown", this.onMouseDown);
-    this.knobHTML.addEventListener("mouseup", this.onMouseUp);
+    // Instantiate the drag controller
+    this.dragController = new DragController(this.knobHTML, this.dotIndicator);
+    this.dragController.html.addEventListener(
+      "snapPointReached",
+      this.onSnapPointReached
+    );
   }
 
-  createTickEmitter = () => {
-    this.tickEmitterHTML = document.createElement("audio");
-    this.tickEmitterHTML.src = "/tick-2.wav";
-    this.tickEmitterHTML.autoplay = true;
-    this.tickEmitterHTML.volume = 0.2;
+  onSnapPointReached = (e: any) => {
+    console.log(e)
+    const snapInterval: number = e.detail.snapInterval;
+    this.emitTick(snapInterval);
   };
 
-  createDraggable = (element: HTMLElement) => {
-    let tickEmitterHTMLRef = this.tickEmitterHTML;
-    Draggable.create(element, {
-      type: "rotation",
-      liveSnap: true,
-      snap: function (endValue) {
-        return Math.round(endValue / 20) * 20;
-      },
-      onDrag: function () {
-        console.log(this.rotation);
-        if (this.rotation % 20 === 0) {
-          let tickEmitterHTMLRefClone = tickEmitterHTMLRef.cloneNode(
-            true
-          ) as HTMLAudioElement;
-          document.body.appendChild(tickEmitterHTMLRefClone);
+  emitTick = (snapInterval: number) => {
+    if (this.tickReady) {
+      this.tickReady = false;
 
-          setTimeout(() => {
-            tickEmitterHTMLRefClone.remove();
-            navigator.vibrate(100);
-          }, 185);
-        }
-      },
-    });
-  };
+      this.tickEmitterHTML = document.createElement("audio");
+      this.tickEmitterHTML.src = "/tick-2.wav";
+      this.tickEmitterHTML.currentTime = 0.002;
+      this.tickEmitterHTML.preservesPitch = false;
+      this.tickEmitterHTML.playbackRate = 2;
+      this.tickEmitterHTML.volume = 1;
+      this.tickEmitterHTML.play();
 
-  onMouseDown = () => {
-    this.lightRingHTML.classList.toggle("redLight");
-    this.lightRingHTML.classList.toggle("greenLight");
-  };
-
-  onMouseUp = () => {
-    this.lightRingHTML.classList.toggle("redLight");
-    this.lightRingHTML.classList.toggle("greenLight");
+      setTimeout(() => {
+        this.tickEmitterHTML?.remove();
+        navigator.vibrate(60);
+        this.tickReady = true;
+      }, 200);
+    }
   };
 }

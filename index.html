@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,21 +7,24 @@
     <title>web-haptic-input-knob</title>
   </head>
   <body class="flex-center round">
-    
-      <div class="base flex-center round" id="knob">
-        <div class="lightRing flex-center round redLight" id="lightRing">
-          <div class="layer1 flex-center round">
-            <div class="layer2 flex-center round">
-              <div class="layer3 flex-center round">
-                <div class="layer4 flex-center round">
-                  <div class="screen round"></div>
+    <div class="base flex-center round" id="knob">
+      <div class="lightRing flex-center round redLight" id="lightRing">
+        <div class="layer1 flex-center round">
+          <div class="layer2 flex-center round">
+            <div class="layer3 flex-center round">
+              <div class="layer4 flex-center round">
+                <div class="screen round">
+                  <div class="dotIndicatorContainer" id="dotIndicatorContainer">
+                    <div class="dotIndicator round" id="dotIndicator"></div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="knobDraggable roundd" id="knobDraggable"></div>
       </div>
+      <div class="knobDraggable roundd" id="dragController"></div>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

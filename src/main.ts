@@ -1,8 +1,10 @@
 import { Knob } from './Knob'
+import { ModeManager } from './ModeManager'
 import './style.css'
 
 const onContentLoaded = () => {
-  new Knob()
+  let knob = new Knob()
+  new ModeManager(knob)
 }
 
 window.addEventListener('DOMContentLoaded', onContentLoaded)
